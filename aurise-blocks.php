@@ -54,7 +54,8 @@ add_action('plugins_loaded', function () {
      *
      * @since 1.0.0
      */
-    $au_init_plugin = str_replace('-', '_', sanitize_key(dirname(plugin_basename(AURISE_CONSTANT_FILE)))); // E.g. `plugin_folder`
+    $au_init_plugin = str_replace('-', '_', sanitize_key(dirname(plugin_basename(AURISE_BLOCKS_FILE)))); // E.g. `plugin_folder`
     global ${$au_init_plugin}; // I.e. `$plugin_folder`
-    ${$au_init_plugin} = AuRise\Plugin\PluginNamespace\Main::instance(); // Run once to init
+    ${$au_init_plugin} = AuRise\Plugin\Blocks\Main::instance(); // Run once to init
 });
+
