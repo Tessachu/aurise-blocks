@@ -37,19 +37,24 @@ defined('AURISE_BLOCKS_DIR') || define('AURISE_BLOCKS_DIR', __DIR__); // Define 
 defined('AURISE_BLOCKS_FILE') || define('AURISE_BLOCKS_FILE', __FILE__);  // Define root file
 defined('AURISE_BLOCKS_VERSION') || define('AURISE_BLOCKS_VERSION', '1.0.0'); // Define plugin version
 
-require_once('includes/class-utilities.php'); // Load the utilities class
-require_once('includes/class-settings.php'); // Load the settings class
-require_once('includes/class-shortcode.php'); // Load the abstract shortcode class
-require_once('includes/class-block.php'); // Load the abstract block class
-require_once('includes/class-main.php'); // Load the main plugin class
-
 /**
- * The global instance of the Main plugin class
- *
- * @var AuRise\Plugin\Blocks\Main
- *
- * @since 1.0.0
+ * Initialise plugin once everything is loaded
  */
-$au_init_plugin = str_replace('-', '_', sanitize_key(dirname(plugin_basename(AURISE_BLOCKS_FILE)))); // E.g. `plugin_folder`
-global ${$au_init_plugin}; // I.e. `$plugin_folder`
-${$au_init_plugin} = AuRise\Plugin\Blocks\Main::instance(); // Run once to init
+add_action('plugins_loaded', function () {
+    require_once AURISE_BLOCKS_DIR . '/includes/class-utilities.php'; // Load the utilities class
+    require_once AURISE_BLOCKS_DIR . '/includes/class-settings.php'; // Load the settings class
+    require_once AURISE_BLOCKS_DIR . '/includes/class-shortcode.php'; // Load the abstract shortcode class
+    require_once AURISE_BLOCKS_DIR . '/includes/class-block.php'; // Load the abstract block class
+    require_once AURISE_BLOCKS_DIR . '/includes/class-main.php'; // Load the main plugin class
+
+    /**
+     * The global instance of the Main plugin class
+     *
+     * @var AuRise\Plugin\Blocks\Main
+     *
+     * @since 1.0.0
+     */
+    $au_init_plugin = str_replace('-', '_', sanitize_key(dirname(plugin_basename(AURISE_CONSTANT_FILE)))); // E.g. `plugin_folder`
+    global ${$au_init_plugin}; // I.e. `$plugin_folder`
+    ${$au_init_plugin} = AuRise\Plugin\PluginNamespace\Main::instance(); // Run once to init
+});
